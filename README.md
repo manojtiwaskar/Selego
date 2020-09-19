@@ -18,7 +18,10 @@ There are two steps to be followed to get the ranked input variates with respect
 
 2. Second, to get a list of ranked variate names.
 	* Open SelegoVariateRanking.py file avaiable in the Code folder and provide the necessary input to run the script.
-	* Run the SelegoVariateRanking.py
+	* Run the script
+	```
+	$ python tsfreshVariatesSelection.py
+	```
 	
 ### Building forecasting model
 
