@@ -48,7 +48,7 @@ $ python CNN1d_Model.py
 
 The scripts to run tsFRESH and PCA based variate selection algorithm are also available in ` ./Code/ ` folder.
 
-**Note: To successfully run the below variate selection algorithm, provide the necessary inputs mentioned in the commented script. **
+**Note: To successfully run the below variate selection algorithm, provide the necessary inputs mentioned in the commented script.**
 
 1. To run tsFRESH based variate selection algorithm:
 ```
