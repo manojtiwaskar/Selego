@@ -15,6 +15,8 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.callbacks import ModelCheckpoint
 import time
 
+'''This script is used to train RNN based time series forecasting model using Selego (ot other variate selection technique) selected variates.
+Go to __main__ module and define the parameters and necessary inputs to training and test the model forecasting. '''
 
 class TimeHistory(tf.keras.callbacks.Callback):
     times = []
