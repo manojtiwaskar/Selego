@@ -27,7 +27,7 @@ To build and train the forecasting model using Selego based ranked variates, I c
 
 The scripts to run the above mentioned models are available in ` ./Code/Models/ `
 
-**Note: To run the models successfully please provide the necessary inputs mentioned in the commented script.**
+**Note: To successfully run the models, provide the necessary inputs mentioned in the commented script.**
 
 1. To run LSTM model:
 ```
@@ -47,6 +47,8 @@ $ python CNN1d_Model.py
 ### Additional variate selection techniques
 
 The scripts to run tsFRESH and PCA based variate selection algorithm are also available in ` ./Code/ ` folder.
+
+**Note: To successfully run the below variate selection algorithm, provide the necessary inputs mentioned in the commented script. **
 
 1. To run tsFRESH based variate selection algorithm:
 ```
