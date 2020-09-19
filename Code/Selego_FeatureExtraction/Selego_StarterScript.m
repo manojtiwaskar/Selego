@@ -1,6 +1,8 @@
 %  Note: To make this Selego code run, you will have to write in total 2 directory path in the following files:
 %  In Selego_StarterScript.m : 1. filename variable = Input data file path 
 %                       2. outpath variable = Output path for correlation matrix
+% we assume that the target variate is the last column of dataset and drop the date/time column from the dataset
+% because feature extraction is done variates and not date/time.
 
 filename = '-----input/data/path/----------';
 outpath = '-----output/directory/path/--------';
