@@ -7,16 +7,29 @@
 filename = '-----input/data/path/----------';
 outpath = '-----output/directory/path/--------';
 
+% Hyperparameters for Selego
+octaves = 3;
+scale = 3;
+sigma_t = 0.5;
+
+
+% Default rank_technique is 'KNN', the other options are 'PPR'
+% (Personalized Page Rank) and 'PR' (Page Rank)
+rank_technique = 'KNN'; 
+
+% If the rank_technique= 'PPR', then provide appropriate seed/target node column number from input data 
+seed = -1;
+
+
 A = readtable(filename);
 
 % generateDataAviage() returns the cell of extracted features for each
 % input variates in the dataset
-result = generateDataAviage(A);
+result = generateDataAviage(A, octaves, scale, sigma_t);
 
 % Corr_Mat variable is the Selego Correlation matrix of all the variates in the dataset.
-Corr_Mat = generateGraph(result, 1);
-T = array2table(Corr_Mat);
+ranking = generateGraph(result,rank_technique, seed);
 
 % Write the correlation matrix at path mentioned in outpath variable.
-writetable(T, outpath);
+writetable(ranking, outpath);
 

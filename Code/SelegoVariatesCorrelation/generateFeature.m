@@ -1,12 +1,12 @@
-function [frames,gss,dogss] = generateFeature(timeSeries)
+function [frames,gss,dogss] = generateFeature(timeSeries, octaves, scale, sigma_t)
 
 %data= csvread('D:\Motif_Results\Datasets\SynteticDataset\data\IndexEmbeddedFeatures\ORGRWMotif_10_1_85_instance_1_0.csv');%csvread('file.csv');
 % data =data(1,:);
 data = timeSeries';
-DeOctTime = 3;
-DeLevelTime = 4;%6;
+DeOctTime = octaves;
+DeLevelTime = scale;
 % DeSigmaDepd = 0.4;%
-DeSigmaTime = 3*2^(1/DeLevelTime);%
+DeSigmaTime = sigma_t;%
 DeGaussianThres = 0.1;%
 % thresh = 0.04 / DeLevelTime / 2 ;%0.04;%
 DeSpatialBins = 4; %NUMBER OF BINs

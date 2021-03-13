@@ -1,4 +1,4 @@
-function Mat = generateGraph(result, Op)
+function ranking = generateGraph(result,rank_technique, seed)
 
 Mat = zeros(size(result, 1));
 
@@ -58,93 +58,89 @@ for i = 1: size(result, 1)
             n = 1;
             
             %  The op == 1 used when Q~D 
-            
-            if Op == 1
                 
-                for newi = 1:size(newRange1, 2)
-                    matches = [];
-                    m = 1; 
-                    for newj = 1:size(newRange2, 2)
-                        rangeI = newRange1(:,newi);
-                        rangeJ = newRange2(:,newj);
-                        
-                        % finding the temporal similarity of two extracted features using = min(U1,U2) - max(L1,L2) 
-                        dis = min(rangeI(2), rangeJ(2)) - max(rangeI(1), rangeJ(1));
-                        
-                        % check for the positive temporal scope overlap of
-                        % two features if positive then we store the dis in
-                        % the list i.e. in matches
-                        if dis >0
-                        matches(m) = dis;
-                        m = m + 1;    
-                        end
-                    end
-                    
-                    % select the best match with maximum temporal scope
-                    % overlap of Q with D
-                    best = max(matches);
-                    
-                    % Create a list of best matches for each features in
-                    % the Q
-                    
-                    if ~isempty(best)
-                        bestMatches(n)= best;
-                        n = n + 1;
+            for newi = 1:size(newRange1, 2)
+                matches = [];
+                m = 1; 
+                for newj = 1:size(newRange2, 2)
+                    rangeI = newRange1(:,newi);
+                    rangeJ = newRange2(:,newj);
+
+                    % finding the temporal similarity of two extracted features using = min(U1,U2) - max(L1,L2) 
+                    dis = min(rangeI(2), rangeJ(2)) - max(rangeI(1), rangeJ(1));
+
+                    % check for the positive temporal scope overlap of
+                    % two features if positive then we store the dis in
+                    % the list i.e. in matches
+                    if dis >0
+                    matches(m) = dis;
+                    m = m + 1;    
                     end
                 end
-                
-                % summing all the best matches for all the features in Q with features in D
-                totalDis = sum(bestMatches);
-                % average =   Sum of bestMatches / No of Features in Q 
-                Sum_Of_totalDis1 = totalDis / size(newRange1, 2);
-                
-                n = 1;
-                
-                for newi = 1:size(newRange2, 2)
-                    matches = [];
-                    m = 1; 
-                    for newj = 1:size(newRange1, 2)
-                        rangeI = newRange1(:,newj);
-                        rangeJ = newRange2(:,newi);
-                        
-                        % finding the temporal similarity of two extracted features using = min(U1,U2) - max(L1,L2) 
-                        dis = min(rangeI(2), rangeJ(2)) - max(rangeI(1), rangeJ(1));
-                        
-                        % check for the positive temporal scope overlap of
-                        % two features if positive then we store the dis variable value in
-                        % the list i.e. in matches variable.
-                        if dis >0
-                        matches(m) = dis;
-                        m = m + 1;    
-                        end
-                    end
-                    
-                    % select the best match with maximum temporal scope
-                    % overlap of D with Q
-                    best = max(matches);
-                    if ~isempty(best)
-                        bestMatches1(n)= best;
-                        n = n + 1;
+
+                % select the best match with maximum temporal scope
+                % overlap of Q with D
+                best = max(matches);
+
+                % Create a list of best matches for each features in
+                % the Q
+
+                if ~isempty(best)
+                    bestMatches(n)= best;
+                    n = n + 1;
+                end
+            end
+
+            % summing all the best matches for all the features in Q with features in D
+            totalDis = sum(bestMatches);
+            % average =   Sum of bestMatches / No of Features in Q 
+            Sum_Of_totalDis1 = totalDis / size(newRange1, 2);
+
+            n = 1;
+
+            for newi = 1:size(newRange2, 2)
+                matches = [];
+                m = 1; 
+                for newj = 1:size(newRange1, 2)
+                    rangeI = newRange1(:,newj);
+                    rangeJ = newRange2(:,newi);
+
+                    % finding the temporal similarity of two extracted features using = min(U1,U2) - max(L1,L2) 
+                    dis = min(rangeI(2), rangeJ(2)) - max(rangeI(1), rangeJ(1));
+
+                    % check for the positive temporal scope overlap of
+                    % two features if positive then we store the dis variable value in
+                    % the list i.e. in matches variable.
+                    if dis >0
+                    matches(m) = dis;
+                    m = m + 1;    
                     end
                 end
-                
-            % summing all the best matches for all the features in D with
-            % features in Q
-                totalDis1 = sum(bestMatches1);
-                
-                % average =   Sum of bestMatches / No of Features in D 
-                Sum_Of_totalDis2 = totalDis1 / size(newRange2, 2);
-                               
-                Sum_Of_totalDis = Sum_Of_totalDis1 + Sum_Of_totalDis2;
-%                 Sum_Of_totalDis = totalDis1 + totalDis
-                
-                if Sum_Of_totalDis == 0
-                    continue;
+
+                % select the best match with maximum temporal scope
+                % overlap of D with Q
+                best = max(matches);
+                if ~isempty(best)
+                    bestMatches1(n)= best;
+                    n = n + 1;
                 end
+            end
+
+        % summing all the best matches for all the features in D with
+        % features in Q
+            totalDis1 = sum(bestMatches1);
+
+            % average =   Sum of bestMatches / No of Features in D 
+            Sum_Of_totalDis2 = totalDis1 / size(newRange2, 2);
+
+            Sum_Of_totalDis = Sum_Of_totalDis1 + Sum_Of_totalDis2
+
+            if Sum_Of_totalDis == 0
+                continue;
+            end
+
+            SimilarityInTwoFeature = Sum_Of_totalDis;
                 
-                SimilarityInTwoFeature = Sum_Of_totalDis;
-                
-            end 
             
             % appending the result of Similarity between two different features
             res(k,:) = [i j SimilarityInTwoFeature];
@@ -163,3 +159,32 @@ for i = 1: size(result, 1)
    end
 
 end
+
+if rank_technique == 'KNN' 
+    r = Mat(end,:);
+end
+
+%
+if rank_technique == 'PPR' && seed ~= -1
+    r = PPR(Mat,(seed), 0.85,size(Mat,1));
+end
+
+if rank_technique == 'PR'
+    r = PR(Mat);
+end
+
+try
+    [out,idx] = sort(r);
+    kgRes = ["",""];
+    idxK = 1;
+    for i = size(idx,2): -1 :2
+        name = result{idx(i),2};
+        value = out(i);
+        kgRes(idxK,:) = [name value];
+        idxK = idxK+1;
+    end
+    ranking = kgRes(:, 1:1);
+catch
+    warning('Please provide correct variate ranking technique. If you have selected rank_technique == PPR also specificy seed node');
+end
+
