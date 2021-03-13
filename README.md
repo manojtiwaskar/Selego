@@ -56,3 +56,7 @@ $ python tsfreshVariatesSelection.py
 ```
 $ python PCA_VariateSelection.py
 ```
+3. To run SAX based variate selection algorithm:
+```
+$ python SAX_VariateRanking.py
+```
