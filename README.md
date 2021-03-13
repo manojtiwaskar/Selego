@@ -12,9 +12,9 @@ I have provided two publicly available dataset in the ` ./Datasets/ ` folder, th
 There are two steps to be followed to get the ranked input variates with respect to target variate:
 
 To compute the Selego based variate selection
-	* Open the SelegoVariatesCorrelation folder in the Matlab available inside the Code folder.
-	* Open Selego_StarterScript.m file in the editor and provide the necessary input mentioned in the **Note**.
-	* Run the Selego_StarterScript.m script.
+1. Open the SelegoVariatesCorrelation folder in the Matlab available inside the Code folder.
+2. Open Selego_StarterScript.m file in the editor and provide the necessary input mentioned in the **Note**.
+3. Run the Selego_StarterScript.m script.
 
 	
 ### Building forecasting model
