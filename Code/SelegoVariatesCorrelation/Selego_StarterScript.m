@@ -17,7 +17,7 @@ sigma_t = 0.5;
 % (Personalized Page Rank) and 'PR' (Page Rank)
 rank_technique = 'KNN'; 
 
-% If the rank_technique= 'PPR', then provide appropriate seed/target node column number from input data 
+% If the rank_technique= 'KNN' or rank_technique= 'PPR' , then provide appropriate seed/target node column number from input data 
 seed = -1;
 
 
@@ -31,5 +31,5 @@ result = generateDataAviage(A, octaves, scale, sigma_t);
 ranking = generateGraph(result,rank_technique, seed);
 
 % Write the correlation matrix at path mentioned in outpath variable.
-writetable(ranking, outpath);
+writematrix(ranking, outpath);
 

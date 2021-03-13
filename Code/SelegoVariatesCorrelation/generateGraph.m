@@ -3,9 +3,14 @@ function ranking = generateGraph(result,rank_technique, seed)
 Mat = zeros(size(result, 1));
 
 % iterate over each extracted features in the result variable
-for i = 1: size(result, 1)
-    text = ['correlation of ', num2str(i)];
-    disp(text);
+if strcmp(rank_technique, 'KNN') 
+    itr = seed;
+else
+    itr = 1: size(result, 1);
+end
+
+
+for i = 1: length(itr)
    
    tmp = result(i); 
    
@@ -160,24 +165,23 @@ for i = 1: size(result, 1)
 
 end
 
-if rank_technique == 'KNN' 
+if strcmp(rank_technique, 'KNN')  
     r = Mat(end,:);
-end
+    r = reshape(r,size(r,2), size(r, 1));
 
-%
-if rank_technique == 'PPR' && seed ~= -1
+elseif strcmp(rank_technique, 'PPR')  & seed ~= -1
     r = PPR(Mat,(seed), 0.85,size(Mat,1));
-end
 
-if rank_technique == 'PR'
+elseif strcmp(rank_technique, 'PR') 
     r = PR(Mat);
+    r = reshape(r,size(r,2), size(r, 1));
 end
 
 try
     [out,idx] = sort(r);
     kgRes = ["",""];
     idxK = 1;
-    for i = size(idx,2): -1 :2
+    for i = size(idx,1): -1 :2
         name = result{idx(i),2};
         value = out(i);
         kgRes(idxK,:) = [name value];
