@@ -28,7 +28,12 @@ A = readtable(filename);
 result = generateDataAviage(A, octaves, scale, sigma_t);
 
 % Corr_Mat variable is the Selego Correlation matrix of all the variates in the dataset.
-ranking = generateGraph(result,rank_technique, seed);
+if strcmp(rank_technique, 'KNN')
+    ranking = generateGraph_KNN(result, seed);
+elseif strcmp(rank_technique, 'PPR') || strcmp(rank_technique, 'PR')
+    ranking = generateGraph_PR_PPR(result,rank_technique, seed);
+end
+
 
 % Write the correlation matrix at path mentioned in outpath variable.
 writematrix(ranking, outpath);
